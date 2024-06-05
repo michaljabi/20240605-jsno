@@ -5,12 +5,14 @@
     <title>Moja strona</title>
 </head>
 <body>
-    <script>
-        var hello = 'Witaj świecie';
+    <script >
+        // Powrót z type="module" (hermetyczny scope po 2015r.)
+        let hello = 'Witaj świecie';
 
         document.write(hello);
     </script>
     <script>
+        let hello = 'Witaj świecie2';
         var otherWorld = 'Inny świat'
 
         document.write('<br>')
@@ -19,6 +21,7 @@
     <script>
 	    document.write('<br>')
         // Tutaj wypisz jeszcze raz wartość hello
+        console.log(hello)
     </script>
     <script>
         var otherWorld = 'Jestem cieniem 😱'
