@@ -11,3 +11,6 @@ function giveMeTheNumber(mistery) {
  * Poniżej odbierz liczbę 300 i pokaż ją na ekranie:
  * */
 
+// w terminalu:
+// node ścieżka/do/pliku.js
+
