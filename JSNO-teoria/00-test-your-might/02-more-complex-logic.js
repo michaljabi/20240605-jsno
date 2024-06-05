@@ -9,10 +9,19 @@
  * Pokaż użycie funkcji divide — udowodnij, że działa poprawnie
  * */
 
+function divide(a, b, callback) {
+    if (b === 0) {
+        throw new Error('Cannot divide by 0')
+    }
+    setTimeout(() => {
+        callback(a / b)
+    }, 3000)
+}
 
 
-
-
+divide(20, 3, (result) => {
+    console.log(result)
+})
 
 /**
  * 2.2
