@@ -55,6 +55,20 @@ divideAsync(10, 1, (err, value) => {
         return console.log(err);
     }
     console.log(value);
+    // Jak wygląda callback hell:
+    
+    // divideAsync(10, 1, (err, value) => {
+    //     if (err) {
+    //         return console.log(err);
+    //     }
+    //     console.log(value);
+    //     divideAsync(10, 1, (err, value) => {
+    //         if (err) {
+    //             return console.log(err);
+    //         }
+    //         console.log(value);
+    //     })
+    // })
 })
 
 
