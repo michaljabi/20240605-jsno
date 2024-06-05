@@ -36,4 +36,31 @@ try {
     console.log(e.message)
 }
 
-console.log('jest dalej')
+console.log('jest');
+
+// "Jedyny" możliwy sposób obsługi błędu asynchrnicznego:
+
+
+function divideAsync(a, b, callback) {
+    setTimeout(() => {
+        // tutaj throw nic nam nie powie.... (nie zadziała od strony CONSUMERa)
+        const err = (b === 0) ? 'Cannot divide by 0' : null;
+        callback(err, a / b)
+    }, 3000)
+}
+
+
+divideAsync(10, 1, (err, value) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(value);
+})
+
+
+divideAsync(10, 0, (err, value) => {
+    if (err) {
+        return console.log(err);
+    }
+    console.log(value);
+})
