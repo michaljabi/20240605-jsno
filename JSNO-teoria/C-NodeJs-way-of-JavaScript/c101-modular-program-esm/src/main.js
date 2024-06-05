@@ -6,10 +6,13 @@
  * Natomiast pozostałe pliki konfiguracyjne — będą znajdowały się w katalogu głównym projektu.
  * */
 
-import { Car } from './Car.js';
+import Car, { MY_VALUE, myObj } from './Car.js';
 
 const car1 = new Car()
 const car2 = new Car('Bugatti', 'Veyron')
 
 car1.makeSomeNoise()
 car2.makeSomeNoise()
+
+console.log(MY_VALUE)
+console.log(myObj)
