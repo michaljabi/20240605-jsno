@@ -21,3 +21,11 @@ const sayHelloWorld = require('./say-hello-world');
 sayHelloWorld.sayHello();
 
 console.log('Your lucky number is', sayHelloWorld.LUCKY_NUMBER)
+
+// po 2015 refactor (object destructuring)
+
+const { sayHello, LUCKY_NUMBER } = require('./say-hello-world');
+
+sayHello();
+
+console.log('Your lucky number is', LUCKY_NUMBER)
