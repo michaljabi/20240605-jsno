@@ -29,3 +29,11 @@ divide(20, 3, (result) => {
  * Jak teraz możemy obsłużyć błąd "Cannot divide by 0"?
  * - zaproponuj rozwiązanie
  * */
+
+try {
+    divide(10, 0, () => { })
+} catch (e) {
+    console.log(e.message)
+}
+
+console.log('jest dalej')
