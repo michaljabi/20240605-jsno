@@ -1,0 +1,11 @@
+<div class="mt-2">
+    <h1>Zadania</h1>
+    <div>
+        <a href="/">Powrót</a>
+    </div>
+    <ul>
+        {{#each tasks}}
+            <li>({{this.id}}) {{this.title}}</li>
+        {{/each}}
+    </ul>
+</div>

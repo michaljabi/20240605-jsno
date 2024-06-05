@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consuming API part 3</title>
+</head>
+<body>
+    <header>
+        <h1>Consuming API - example 3</h1>
+        <p>
+            Ten przykład jest podobny, ale mamy dodatkowo filtr do naszej listy
+        </p>
+    </header>
+    <main>
+        <p>UWAGA: serwer na - http://localhost:3036 - <mark>Musi być ustawiony!</mark></p>
+        <h3>Moja lista zakupów:</h3>
+        <div>
+            <input id="filter-items" placeholder="wpisz aby filtrować">
+        </div>
+        <ul id="list"></ul>
+        <h4>Dodaj nowy zakup:</h4>
+        <div>
+            <input id="new-item" style="width: 100%" placeholder="napisz coś i kliknij (Enter)">
+        </div>
+        <section>
+            <p>
+                Należy zwrócić uwagę, że możemy te 3 example - traktować jako 3 niezależne aplikacje,
+                Co je łączy? Wszyscy korzystają z tego samego API do listy zakupów.
+                Ale każdy z nich udostępnia inne jej funkcjonalności.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        const theList = document.querySelector('#list');
+        const inputBox = document.querySelector('#new-item')
+        const inputFilter = document.querySelector('#filter-items')
+
+        // Nasłuchujemy na każdy keystroke (każde naciśniecie przycisku)
+        inputFilter.addEventListener('input', (ev) => {
+            const value = ev.target.value;
+            // taka jaka jest aktualna wartość filtra, zapytaj serwer o listę z filtrem:
+            refreshList(value);
+        })
+
+        // Nasłuchujemy kliknięcia w inputBox
+        inputBox.addEventListener('keyup', (ev) => {
+        	// Tutaj mamy tekst który ktoś wpisuje w pole:
+        	const text = ev.target.value;
+
+        	// jeśli ktoś wcisnął 'Enter' to wyślij nowy item
+            if(ev.key === 'Enter') {
+	            addTolist(text);
+	            // ..i.... wyczyść to pole:
+                ev.target.value = '';
+            }
+        })
+
+        function refreshList(filterText = '') {
+        	let url = 'http://localhost:3036/list';
+        	if(filterText) {
+        		url += '?filterBy=' + filterText;
+            }
+	        fetch(url)
+		        .then(response => response.json())
+		        .then(shoppingList => {
+			        let shoppingListAsLiString = '';
+			        // wiemy że lista zakupów to tablica, wiec po niej iterujemy Tworząc stringa:
+			        for(let item of shoppingList) {
+				        shoppingListAsLiString += `<li>${item}</li>`
+			        }
+					theList.innerHTML = shoppingListAsLiString;
+		        })
+        }
+
+        function addTolist(name) {
+	        fetch('http://localhost:3036/add', {
+	        	    method: 'POST',
+                    // Trzeba ustawić nie tylko body i method, ale również jaki Content wysyłamy (jakiego rodzaju)
+                    headers: {
+	                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({name})
+	            })
+		        .then(response => response.json())
+		        .then(() => {
+		        	// Jeśli wszystko się powiodło, odśwież listę:
+					refreshList()
+                    inputFilter.value = ''
+		        })
+        }
+
+        // Załaduj listę na sam początek:
+        refreshList();
+    </script>
+</body>
+</html>

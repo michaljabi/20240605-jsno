@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manipulacja DOM w JS</title>
+    <style>
+        .header1 {
+            color: darkgreen;
+        }
+        #btn-change {
+            border: 2px dashed darkred;
+            cursor: pointer;
+        }
+        #btn-change:hover {
+            border-style: solid;
+            color: #ffffff;
+            background-color: darkblue;
+        }
+        .blue-box {
+            border: 2px solid cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header1"> Przykładowy nagłówek 1 poziomu</h1>
+    <hr>
+    <h2 class="header2"> Przykładowy nagłówek 2 poziomu </h2>
+    <button id="btn-change"> Zmień kolory </button>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur ducimus eius, incidunt laboriosam laudantium molestiae natus nostrum perspiciatis porro quas quo vel voluptate voluptatibus? Alias explicabo ipsa ipsam molestiae porro!
+    </p>
+
+    <script>
+        // Przykład #1:
+        const h2Title = document.querySelector('.header2');
+        const btnChange = document.querySelector('#btn-change');
+
+        btnChange.addEventListener('click', () => {
+	        h2Title.style.backgroundColor = 'green';
+	        h2Title.style.color = 'white';
+        })
+
+        // Przykład #2:
+        const paragraph = document.querySelector('p');
+        paragraph.addEventListener('mouseover', () => {
+	        paragraph.classList.add('blue-box')
+        })
+        paragraph.addEventListener('mouseout', () => {
+	        paragraph.classList.remove('blue-box')
+        })
+    </script>
+</body>
+</html>

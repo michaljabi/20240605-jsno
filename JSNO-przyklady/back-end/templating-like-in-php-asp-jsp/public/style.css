@@ -1,0 +1,39 @@
+:root{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+body{
+    margin: 0;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.logout {
+    margin-top: 4rem;
+}
+
+.logout .logout__form {
+    margin-top: 4rem;
+    text-align: right;
+}
+
+.alert {
+    margin: 1em;
+    border: 2px solid indigo;
+    background-color: #b06bcd;
+    color: white;
+    border-radius: 5px;
+    padding: 1em;
+}
+
+.alert--danger {
+    border-color: darkred;
+    background-color: #cf5a5a;
+}

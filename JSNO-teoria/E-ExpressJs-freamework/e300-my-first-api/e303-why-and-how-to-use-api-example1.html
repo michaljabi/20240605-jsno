@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consuming API part 1</title>
+</head>
+<body>
+    <header>
+        <h1>Consuming API - example 1</h1>
+        <p>
+            Pobieram tutaj wszystkie elementy z listy zakupów i wyświetlam jak chcę !
+        </p>
+        <p>
+            Korzystam z <code>fetch</code> - pozwala to na ściągnięcie danych w formie <code>GET</code>.
+            Bez potrzeby zmiany paska z URL, dzieje się to już po załadowaniu strony!!
+        </p>
+    </header>
+    <main>
+        <p>UWAGA: serwer na - http://localhost:3036 - <mark>Musi być ustawiony!</mark></p>
+        <h3>Moja lista zakupów:</h3>
+        <ul id="list"></ul>
+    </main>
+
+    <script>
+      // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+      // oraz:
+      // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+        fetch('http://localhost:3036/list')
+            .then(response => response.json())
+            .then(shoppingList => {
+            	let shoppingListAsLiString = '';
+            	// wiemy że lista zakupów to tablica, wiec po niej iterujemy Tworząc stringa:
+                for(let item of shoppingList) {
+                	shoppingListAsLiString += `<li>${item}</li>`
+                }
+                document.querySelector('#list').innerHTML = shoppingListAsLiString;
+            })
+    </script>
+</body>
+</html>

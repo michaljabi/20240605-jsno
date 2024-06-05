@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodanie nowego todo</title>
+</head>
+<body>
+
+    <!--
+        Zauważ, że action to link absolutny, dodatkowo przenosi on nas na inny serwer
+        Tak domyślnie zachowuje się przeglądarka wyśle to co jest w formularzu na adres z action.
+    -->
+    <form method="post" action="http://localhost:3060/add-todo">
+        <fieldset>
+            <label>
+                Tytuł:
+                <input name="title">
+            </label>
+        </fieldset>
+        <button type="submit"> Wyślij </button>
+    </form>
+    <hr>
+    <button id="downloadList">
+        Pobierz listę jako JSON!
+    </button>
+    <pre id="listAsJson">
+
+    </pre>
+    <script>
+        const buttonDownloadList = document.querySelector('#downloadList');
+        const listAsJson = document.querySelector('#listAsJson');
+
+
+        buttonDownloadList.addEventListener('click', () => {
+        	// Wbudowane fetch w przeglądarkę pozwala wysłać zapytanie NIE PRZEZ FORMULARZ,
+            // A dzięki JavaScript (AJAX)
+        	fetch('http://localhost:3060/?type=json')
+              .then(res => res.json())
+              .then(data => {
+              	listAsJson.innerHTML = JSON.stringify(data);
+              })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Typical JS Application</title>
+</head>
+<body>
+    <h1 id="my-title"></h1>
+    <h2>Warstwa logiki i widoku jest odseparowana</h2>
+    <button id="btn-change-title"> Zmień tytuł </button>
+
+    <script>
+        // Ten rodzaj podejścia jest bardziej "cool" i lepiej się sprawdza...
+        // Dalej ma jednak swoje minusy (które programiści zazwyczaj rozwiązują framework'ami - React, Angular, Vue... etc...).
+
+        const h1Title = document.getElementById('my-title');
+        const btnChange = document.getElementById('btn-change-title');
+
+        h1Title.textContent = 'Witaj inny świecie';
+
+        btnChange.addEventListener('click', () => {
+	        h1Title.textContent = 'Żegnaj świecie';
+        })
+    </script>
+</body>
+</html>

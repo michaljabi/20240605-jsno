@@ -1,0 +1,10 @@
+# użyj tego pliku aby dodać coś na listę zakupów
+# wyślij to kilka razy
+# zmieniając "mój nowy zakup" na co chcesz, to się doda do listy
+
+POST http://localhost:3036/add
+Content-Type: application/json
+
+{
+ "name":"mój nowy zakup2"
+}

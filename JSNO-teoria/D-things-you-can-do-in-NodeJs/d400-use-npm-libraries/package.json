@@ -1,0 +1,12 @@
+{
+  "name": "d400-use-npm-libraries",
+  "version": "1.0.0",
+  "description": "",
+  "main": "d401-an-3rd-party-library.js",
+  "scripts": {
+    "start-d401": "node d401-an-3rd-party-library.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

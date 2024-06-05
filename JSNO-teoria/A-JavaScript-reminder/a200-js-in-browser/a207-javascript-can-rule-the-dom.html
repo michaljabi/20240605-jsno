@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Can rule the DOM</title>
+</head>
+<body>
+    <h1 id="someHeader"></h1>
+    <script>
+        // Możemy "nasłuchiwać" eventów jeśli wczepimy je w HTML i dodamy np. onclick="someFunction()"
+
+        // Możesz również z poziomu JS dostać wskaźnik na element h1, używając jego atrybutu id:
+        const header = document.getElementById('someHeader');
+
+        // Teraz, posiadamy referencje do obiektu DOM - H1#someHeader
+
+        // Możemy więc...
+        // Dodać tekst:
+        header.textContent = 'Hello World of JavaScript';
+        // Zmienić jego kolor:
+        header.style.color = 'red';
+        // Dodać fajną ramkę:
+        header.style.border = '2px solid black';
+
+        // Podsumowując:
+        // Każdą wartość CSS + HTML możemy ustawić z poziomu JavaScript
+
+        // Dodajmy "tooltip" żeby po najechaniu myszką na ten header pokazało się "znalazłeś mnie !"
+        header.setAttribute('title', 'znalazłeś mnie !');
+
+        // Dodajmy event listener, żeby po kliknięciu na ten element, dodawał się wykrzyknik na końcu:
+        header.addEventListener('click', function() {
+          header.textContent += '!';
+        })
+
+        /*
+        *
+        * Bardziej zaawansowane funkcjonalności, to zarządzanie DOM po przez JS.
+        *
+        * Możemy dodawać całe struktury DOM z poziomu JS.
+        * i ułatwić sobie to zadanie tworząc funkcje konstruujące (factory functions).
+        *
+        */
+
+        function addToBody(obj){
+            document.body.appendChild(obj)
+        }
+
+        function makeDiv(name = 'świecie') {
+            const div = document.createElement('div');
+            div.textContent = 'Witaj ' + name;
+            return div;
+        }
+
+        const userData = [
+            {name: 'Zbyszek'},
+            {name: 'Krzysiek'},
+            {name: 'Marzena'},
+            {name: 'Stefan'}
+        ]
+
+        for(const user of userData) {
+            addToBody(makeDiv(user.name));
+        }
+        addToBody(makeDiv('...inny użytkowniku'));
+    </script>
+</body>
+</html>

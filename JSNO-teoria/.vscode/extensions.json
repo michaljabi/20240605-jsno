@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "achil.vscode-javascript-repl",
+    "WallabyJs.quokka-vscode",
+    "ritwickdey.LiveServer",
+    "humao.rest-client",
+    "ms-azuretools.vscode-docker",
+    "dbaeumer.vscode-eslint",
+    "SimonSiefke.prettier-vscode",
+    "vscode-icons-team.vscode-icons",
+    "johnpapa.vscode-peacock"
+  ]
+}

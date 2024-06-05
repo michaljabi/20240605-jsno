@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consuming API part 4</title>
+    <!-- korzystamy tutaj z frameworka CSS - BULMA, więcej: https://bulma.io/ -->
+    <link rel="stylesheet" href="https://www.unpkg.com/bulma@0.9.2/css/bulma.min.css" />
+</head>
+<body>
+    <header class="hero is-info">
+        <div class="hero-body">
+            <h1 class="title">Consuming API part 4</h1>
+            <p class="subtitle">
+                Real life example...
+            </p>
+            <div class="message is-danger">
+                <div class="message-body">
+                    UWAGA: serwer na - http://localhost:3036 - <mark>Musi być ustawiony!</mark>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+
+        <section class="panel mt-3 is-link">
+            <p class="panel-heading">Moja lista zakupów:</p>
+            <div class="panel-block">
+                <p class="control">
+                    <input id="filter-items" class="input" placeholder="wpisz aby filtrować">
+                </p>
+            </div>
+            <ul id="list"></ul>
+            <div class="panel-block is-flex-direction-column">
+                <h5 class="is-size-5" style="width: 100%">Dodaj nowy zakup:</h5>
+                <p class="control">
+                    <input id="new-item" class="input" placeholder="napisz coś i kliknij (Enter)">
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Ten przykład to po prostu ładne opakowanie naszej prostej aplikacji (Bulma CSS)
+        // Tutaj w warstwie skryptowej nie zmienia się praktycznie NIC!
+        const theList = document.querySelector('#list');
+        const inputBox = document.querySelector('#new-item')
+        const inputFilter = document.querySelector('#filter-items')
+
+        // Nasłuchujemy na każdy keystroke (każde naciśniecie przycisku)
+        inputFilter.addEventListener('input', (ev) => {
+            const value = ev.target.value;
+            // taka jaka jest aktualna wartość filtra, zapytaj serwer o listę z filtrem:
+            refreshList(value);
+        })
+
+        // Nasłuchujemy kliknięcia w inputBox
+        inputBox.addEventListener('keyup', (ev) => {
+        	// Tutaj mamy tekst który ktoś wpisuje w pole:
+        	const text = ev.target.value;
+
+        	// jeśli ktoś wcisnął 'Enter' to wyślij nowy item
+            if(ev.key === 'Enter') {
+	            addTolist(text);
+	            // ..i.... wyczyść to pole:
+                ev.target.value = '';
+            }
+        })
+
+        function refreshList(filterText = '') {
+        	let url = 'http://localhost:3036/list';
+        	if(filterText) {
+        		url += '?filterBy=' + filterText;
+            }
+	        fetch(url)
+		        .then(response => response.json())
+		        .then(shoppingList => {
+			        let shoppingListAsLiString = '';
+			        // wiemy że lista zakupów to tablica, wiec po niej iterujemy Tworząc stringa:
+			        for(let item of shoppingList) {
+				        shoppingListAsLiString += `<li class="panel-block">${item}</li>`
+			        }
+					theList.innerHTML = shoppingListAsLiString;
+		        })
+        }
+
+        function addTolist(name) {
+	        fetch('http://localhost:3036/add', {
+	        	    method: 'POST',
+                    // Trzeba ustawić nie tylko body i method, ale również jaki Content wysyłamy (jakiego rodzaju)
+                    headers: {
+	                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({name})
+	            })
+		        .then(response => response.json())
+		        .then(() => {
+		        	// Jeśli wszystko się powiodło, odśwież listę:
+					refreshList()
+                    // ZAUWAŻ że w aplikacji jest teras drobny bug, bo jak coś i filtrujesz i dodajesz,
+                    // to po dodaniu odświeża całą listę - nic dziwnego powyżej prosimy o całą listę!
+                    // dlatego filter powinien być przechowywany jako outer-scope w jakiś sposób i przekazywany tutaj na przykład.
+                    // Można tego BUGa rozwiązać również inaczej, np. kasując wartość w polu filter:
+                    inputFilter.value = ''
+		        })
+        }
+
+        // Załaduj listę na sam początek:
+        refreshList();
+    </script>
+</body>
+</html>

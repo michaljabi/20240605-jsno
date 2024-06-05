@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modular ES6 ! 🔥</title>
+</head>
+<body>
+    <div>
+        <h1> Proszę, sprawdź konsolę 😎` </h1>
+    </div>
+    <script>
+        const coffeeName = 'Kopi luwak';
+    </script>
+    <script>
+        console.log('Standardowe zachowanie JS: ', coffeeName , '☕');
+    </script>
+
+    <script type="module">
+        const bossCoffee = '';
+    </script>
+    <script type="module">
+        import myOtherCoffeeName from './b601-import-export-variants/mocha-coffee-default.js'
+        console.log('Dostęp do zmiennych globalnych:', coffeeName);
+        console.log('Dostęp do zmiennych importowanych:', myOtherCoffeeName);
+        try {
+        	// Nie mamy dostępu do bossCoffee bo nie zostało wyeksportowane i nie mieszka w oddzielnym pliku!
+	        console.log( 'Dostęp do innego modułu:', bossCoffee )
+        } catch (e) {
+        	console.error(e);
+        }
+    </script>
+</body>
+</html>

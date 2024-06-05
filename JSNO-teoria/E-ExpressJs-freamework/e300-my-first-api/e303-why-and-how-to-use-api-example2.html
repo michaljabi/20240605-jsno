@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consuming API part 2</title>
+</head>
+<body>
+    <header>
+        <h1>Consuming API - example 2</h1>
+        <p>
+            Ten przykład jest podobny, ale dodatkowo wysyłam <code>POST</code> formularz przez JavaScript
+            tak aby dodać element na listę
+        </p>
+    </header>
+    <main>
+        <p>UWAGA: serwer na - http://localhost:3036 - <mark>Musi być ustawiony!</mark></p>
+        <h3>Moja lista zakupów:</h3>
+        <ul id="list"></ul>
+        <h4>Dodaj nowy zakup:</h4>
+        <div>
+            <input id="new-item" style="width: 100%" placeholder="napisz coś i kliknij (Enter)">
+        </div>
+    </main>
+
+    <script>
+        const theList = document.querySelector('#list');
+        const inputBox = document.querySelector('#new-item')
+
+        // Nasłuchujemy kliknięcia w inputBox
+        inputBox.addEventListener('keyup', (ev) => {
+        	// Tutaj mamy tekst który ktoś wpisuje w pole:
+        	const text = ev.target.value;
+
+        	// jeśli ktoś wcisnął 'Enter' to wyślij nowy item
+            if(ev.key === 'Enter') {
+	            addTolist(text);
+	            // ..i.... wyczyść to pole:
+                ev.target.value = '';
+            }
+        })
+
+        function refreshList() {
+	        fetch('http://localhost:3036/list')
+		        .then(response => response.json())
+		        .then(shoppingList => {
+			        let shoppingListAsLiString = '';
+			        // wiemy że lista zakupów to tablica, wiec po niej iterujemy Tworząc stringa:
+			        for(let item of shoppingList) {
+				        shoppingListAsLiString += `<li>${item}</li>`
+			        }
+					theList.innerHTML = shoppingListAsLiString;
+		        })
+        }
+
+        function addTolist(name) {
+	        fetch('http://localhost:3036/add', {
+	        	    method: 'POST',
+                    // Trzeba ustawić nie tylko body i method, ale również jaki Content wysyłamy (jakiego rodzaju)
+                    headers: {
+	                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({name})
+	            })
+		        .then(response => response.json())
+		        .then(() => {
+		        	// Jeśli wszystko się powiodło, odśwież listę:
+					refreshList()
+		        })
+        }
+
+        // Załaduj listę na sam początek:
+        refreshList();
+    </script>
+</body>
+</html>

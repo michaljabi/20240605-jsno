@@ -1,0 +1,14 @@
+{
+  "something-str": "Hello",
+  "else-num": 223.12,
+  "other-bool": false,
+  "complex-obj": {
+    "hello": "JSON!",
+    "nextLevel": {
+      "number": 234
+    }
+  },
+  "array": [10, 20, 30],
+  "hint": "//json nie może mieć komentarzy",
+  "hint2": "czasem trzeba escape'ować \" znaki !"
+}

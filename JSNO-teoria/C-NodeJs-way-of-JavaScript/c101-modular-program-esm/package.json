@@ -1,0 +1,7 @@
+{
+  "name": "c101-modular-program-esm",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "type": "module"
+}
