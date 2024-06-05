@@ -3,8 +3,8 @@ console.log('Hello stranger... shall we start?')
 
 // PROVIDER:
 function giveMeTheNumber(mistery) {
-    // mistery(300)
-    mistery(10, 'a')
+    mistery(300)
+    //mistery(10, 'a')
     // setTimeout(() => {
     //     mistery(6000)
     // }, 5000);
@@ -41,7 +41,7 @@ function recieveTheNumber(no, letter) {
     console.log(letter)
 }
 
-// giveMeTheNumber(recieveTheNumber)
+giveMeTheNumber(recieveTheNumber)
 
 giveMeTheNumber((a, b) => console.log(a,b));
 
