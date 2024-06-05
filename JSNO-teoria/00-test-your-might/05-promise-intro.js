@@ -53,7 +53,31 @@ function divideAsync(a, b) {
 }
 
 
+// CONSUMER:
 divideAsync(10, 10)
+    .then((value) => {
+        console.log(value);
+    })
+    .catch((e) => {
+        console.log(e.message);
+    })
+
+
+// PROVIDER:
+// Timeout with promise:
+function divideAsyncTimeout(a, b) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (b === 0) {
+                return reject(new Error('Cannot divide by 0'))
+            }
+            resolve(a / b)
+        }, 3000)
+    })
+}
+
+// CONSUMER:
+divideAsyncTimeout(10, 0)
     .then((value) => {
         console.log(value);
     })
