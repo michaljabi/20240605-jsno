@@ -11,19 +11,21 @@
  *
  * */
 
-const myColor = 'red';
+globalThis.myColor = 'last one'
+
+// const myColor = 'red';
 
 function inception() {
-	const myColor = 'cristal';
+	// const myColor = 'cristal';
 
 	function secondDream() {
 		const myColor = 'sapphire';
 
 		function thirdDream() {
-			const myColor = 'emerald';
+			//const myColor = 'emerald';
 
 			function fourthDream() {
-				const myColor = 'diamond';
+				//const myColor = 'diamond';
 
 				console.log(myColor);
 			}
