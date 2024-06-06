@@ -4,7 +4,7 @@ const path = require('node:path');
 
 
 const filePath = path.join(__dirname, 'data.txt');
-
+// __dirname i __filename są tylko w CommonJS
 console.log(__dirname);
 // console.log(__filename);
 console.log(path.join(__dirname, 'data.txt'));
