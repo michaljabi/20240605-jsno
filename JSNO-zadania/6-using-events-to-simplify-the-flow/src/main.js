@@ -1,26 +1,19 @@
-import { EventEmitter } from 'node:events'
 import { createInterface } from 'node:readline';
 import { stdin, stdout, exit } from 'node:process';
+import { programEventBus } from './program-event-bus.js'
+import './render-layer.js'
 
-const programEventBus = new EventEmitter();
 const readline = createInterface(stdin, stdout)
 
 console.log('[Path Segments 1.0]');
 
 programEventBus.on('onStart', () => {
-    console.log('Proszę czekać, ładowanie danych...')
     setTimeout(() => {
         programEventBus.emit('onLoad')
     }, 3000)
 })
 
 programEventBus.on('onLoad', () => {
-    console.log(`----
-Witaj.
-Obsługa programu: 
-  1. podaj ścieżkę
-  lub
-  2. wpisz: koniec - aby zakończyć działanie programu`)
     programEventBus.emit('onPathSegmentsRequested')
 })
 
@@ -39,10 +32,6 @@ programEventBus.on('onPathSegmentsRequested', () => {
 })
 
 programEventBus.on('onClose', () => {
-    console.log(`
----
-Żegnaj.
-`)
     readline.close();
     exit();
 })
