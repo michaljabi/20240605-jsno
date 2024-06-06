@@ -43,4 +43,35 @@ promiseReadFile(filePath, 'utf8')
         console.log('Cannot read file...', err.message)
     })
 
-// async / await refactor: (to-do)
+// async / await refactor
+// top-level async działa więc nie muszę opakowywać kodu poniżej w fukcję z await function()
+try {
+    const mySecondFile = await promiseReadFile(filePath, 'utf8');
+    const str = await promiseReadFile(new URL(mySecondFile, import.meta.url), 'utf-8')
+    console.log(str)
+} catch (e) {
+    console.log('Cannot read file...', e.message)
+}
+
+function giveMeNumber() {
+    return 3
+}
+
+console.log(giveMeNumber())
+
+
+function giveMeNumberAsync() {
+    return Promise.resolve(3)
+}
+
+console.log(giveMeNumberAsync())
+console.log(await giveMeNumberAsync())
+
+// ... że można prościej mieć Promise:
+
+async function giveMeNumberAsync2() {
+    return 3
+}
+
+console.log(giveMeNumberAsync2())
+console.log(await giveMeNumberAsync2())
