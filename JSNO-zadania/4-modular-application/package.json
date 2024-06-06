@@ -1,0 +1,14 @@
+{
+  "name": "4-modular-application",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "banner": "node src/main.js",
+    "hello": "echo \"I do nothing\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
