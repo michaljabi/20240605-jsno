@@ -1,0 +1,26 @@
+{
+  "name": "knex-mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "orders:problem": "node src/get-user-orders/the-orders-problem.js",
+    "orders:solution": "node src/get-user-orders/the-orders-solution.js",
+    "knex:migrate:make": "knex migrate:make",
+    "knex:migrate:latest": "knex migrate:latest",
+    "knex:seed:make": "knex seed:make",
+    "knex:seed:run": "knex seed:run",
+    "knex:rollback": "knex migrate:rollback",
+    "knex:init": "knex init"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "knex": "^3.1.0",
+    "mysql2": "^3.10.0"
+  },
+  "type": "module"
+}
