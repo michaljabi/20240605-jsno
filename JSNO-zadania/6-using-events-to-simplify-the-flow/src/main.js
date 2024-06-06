@@ -43,7 +43,7 @@ programEventBus.on('onClose', () => {
 ---
 Żegnaj.
 `)
-    // readline.close();
+    readline.close();
     exit();
 })
 
