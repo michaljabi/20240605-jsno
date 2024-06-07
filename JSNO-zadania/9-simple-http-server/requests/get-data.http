@@ -10,3 +10,7 @@ GET http://localhost:3000/non-existent
 # testy endpointów:
 # https://www.npmjs.com/package/supertest
 # https://vitest.dev/guide/
+
+
+### Valid request with .env
+GET http://localhost:3030/data
