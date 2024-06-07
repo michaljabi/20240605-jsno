@@ -1,0 +1,16 @@
+### Valid request
+GET http://localhost:3000/data
+
+
+### Invalid 404 request
+GET http://localhost:3000/non-existent
+
+
+# Level dalej:
+# testy endpointów:
+# https://www.npmjs.com/package/supertest
+# https://vitest.dev/guide/
+
+
+### Valid request with .env
+GET http://localhost:3030/data
