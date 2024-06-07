@@ -2,8 +2,9 @@ import process from 'node:process'
 
 import 'express-async-errors'
 import express from 'express'
-import { nanoid } from 'nanoid'
+
 import { dataController } from './data/data.controller.js';
+import { usersController } from './users/users.controller.js';
 
 
 const PORT = Number(process.env.PORT) || 3000;
@@ -27,46 +28,7 @@ server.use((req, res, next) => {
 })
 
 server.use('/data', dataController)
-
-const users = [];
-
-server.get('/users', (req, res) => {
-
-    const { name = '' } = req.query;
-
-    res.json(users.filter(u => u.name.startsWith(name)))
-})
-
-
-/// To musi być nad /users/:uuid inaczej się nigdy nie wykona!
-server.get('/users/boom', (req, res) => {
-
-    const { name = '' } = req.query;
-
-    res.json(users.filter(u => u.name.startsWith(name)))
-})
-
-server.get('/users/:uuid', (req, res) => {
-
-    const { uuid } = req.params;
-    const user = users.find(u => u.uuid === uuid);
-
-    if (user) {
-        return res.json(user)
-    }
-    res.status(404).json({ error: `User with uuid ${uuid} not found` })
-})
-
-
-server.post('/users', (req, res) => {
-
-    const myUser = req.body;
-    myUser.uuid = nanoid();
-    users.push(myUser)
-    // res.status(201).json({ uuid: Math.floor(Math.random() * 10000), myUser })
-    res.status(201).json(myUser)
-})
-
+server.use('/users', usersController)
 
 
 server.all('**', (req, res) => {
