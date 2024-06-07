@@ -34,3 +34,15 @@ function program() {
 }
 
 program();
+
+try {
+const users = await prisma.user.findMany();
+const userWithOrders = await prisma.user.findUnique({
+	where: {id: 1},
+	include: {
+			orders: true
+	},
+})
+} catch (e) {
+	
+}
