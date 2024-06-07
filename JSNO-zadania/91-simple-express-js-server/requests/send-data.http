@@ -1,0 +1,22 @@
+### Send New user
+
+POST http://localhost:3030/users
+Cookie: hello=123;
+Content-Type: application/json
+
+{
+    "name": "Anna",
+    "lastName": "Kowalska"
+}
+
+
+### Get all users:
+GET http://localhost:3030/users
+
+
+### Get users filtered by name:
+GET http://localhost:3030/users?name=M
+
+
+### Get one user:
+GET http://localhost:3030/users/0b-CeibmXSFiVeEpOzotz
