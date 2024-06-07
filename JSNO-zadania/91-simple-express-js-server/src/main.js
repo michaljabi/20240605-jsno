@@ -1,11 +1,9 @@
-import { URL } from 'node:url';
 import process from 'node:process'
-import fs from 'node:fs/promises'
 
 import 'express-async-errors'
 import express from 'express'
 import { nanoid } from 'nanoid'
-import { error } from 'node:console';
+import { dataController } from './data/data.controller.js';
 
 
 const PORT = Number(process.env.PORT) || 3000;
@@ -28,16 +26,7 @@ server.use((req, res, next) => {
     next();
 })
 
-server.get('/data', async (req, res) => {
-    try {
-        const data = await fs.readFile(new URL('../data.json', import.meta.url), 'utf-8');
-        const dataOBJ = JSON.parse(data);
-        res.json(dataOBJ);
-    } catch (e) {
-        console.error(e);
-        res.status(500).json({ error: 'Cannot open file' });
-    }
-})
+server.use('/data', dataController)
 
 const users = [];
 
