@@ -1,17 +1,24 @@
 import { createServer } from 'node:http'
+import { URL } from 'node:url';
 import process from 'node:process'
 import fs from 'node:fs/promises'
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 const server = createServer(async (req, res) => {
 
     res.setHeader('Content-Type', 'application/json');
     switch (req.url) {
         case "/data":
-            const data = await fs.readFile('data.json', 'utf-8');
-            res.write(data);
+            try {
+                const data = await fs.readFile(new URL('../data.json', import.meta.url), 'utf-8');
+                res.write(data);
+            } catch (e) {
+                res.statusCode = 500;
+                console.error(e);
+                res.write(JSON.stringify({ error: 'Cannot open file' }));
+            }
             break;
         default:
             res.statusCode = 404;
@@ -21,8 +28,13 @@ const server = createServer(async (req, res) => {
 })
 
 
-server.listen(3000)
+server.listen(PORT)
 
 server.on('listening', () => {
     console.log(`I am on: http://localhost:${PORT}`)
+})
+
+process.on('uncaughtException', (e) => {
+    console.log('This is not workng....');
+    console.error(e);
 })
