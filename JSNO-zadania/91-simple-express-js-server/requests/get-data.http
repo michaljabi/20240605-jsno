@@ -14,3 +14,10 @@ GET http://localhost:3000/non-existent
 
 ### Valid request with .env
 GET http://localhost:3030/data
+
+
+### Invalid request with .env
+GET http://localhost:3030/data-non-existent
+
+### Invalid request with .env
+POST http://localhost:3030/data-non

@@ -1,36 +1,31 @@
-import { createServer } from 'node:http'
 import { URL } from 'node:url';
 import process from 'node:process'
 import fs from 'node:fs/promises'
 
+import 'express-async-errors'
+import express from 'express'
+
 
 const PORT = Number(process.env.PORT) || 3000;
 
-const server = createServer(async (req, res) => {
+const server = express();
 
-    res.setHeader('Content-Type', 'application/json');
-    switch (req.url) {
-        case "/data":
-            try {
-                const data = await fs.readFile(new URL('../data.json', import.meta.url), 'utf-8');
-                res.write(data);
-            } catch (e) {
-                res.statusCode = 500;
-                console.error(e);
-                res.write(JSON.stringify({ error: 'Cannot open file' }));
-            }
-            break;
-        default:
-            res.statusCode = 404;
-            res.write(JSON.stringify({ error: `404 - nie znam ścieżki ${req.url}` }));
+server.get('/data', async (req, res) => {
+    try {
+        const data = await fs.readFile(new URL('../data.json', import.meta.url), 'utf-8');
+        const dataOBJ = JSON.parse(data);
+        res.json(dataOBJ);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({ error: 'Cannot open file' });
     }
-    res.end();
 })
 
+server.all('**', (req, res) => {
+    res.json({ error: `404 - nie znam ścieżki ${req.url}` });
+})
 
-server.listen(PORT)
-
-server.on('listening', () => {
+server.listen(PORT, () => {
     console.log(`I am on: http://localhost:${PORT}`)
 })
 
