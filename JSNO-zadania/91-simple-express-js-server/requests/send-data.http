@@ -20,3 +20,7 @@ GET http://localhost:3030/users?name=M
 
 ### Get one user:
 GET http://localhost:3030/users/tFEVIngJRXloSdbo-LUKY
+
+
+### Test boom middleware:
+GET http://localhost:3030/users/boom

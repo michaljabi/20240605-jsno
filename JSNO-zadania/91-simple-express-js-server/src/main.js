@@ -19,7 +19,7 @@ server.use(express.json())
 server.use((req, res, next) => {
     console.log(`Client ${req.ip} is hitting endpoint ${req.url} with method ${req.method}`);
     next();
-    // next(new Error('OH no !'));
+    //next(new Error('OH no !'));
 })
 
 server.use((req, res, next) => {
@@ -33,6 +33,18 @@ server.use('/users', usersController)
 
 server.all('**', (req, res) => {
     res.json({ error: `404 - nie znam ścieżki ${req.url}` });
+})
+
+// Error handling middleware:
+server.use((err, req, res, next) => {
+    // logic
+
+    console.error(err);
+
+    res.status(500).json({
+        error: 'An error occured',
+        message: err.message
+    })
 })
 
 server.listen(PORT, () => {
